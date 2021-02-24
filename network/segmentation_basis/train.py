@@ -561,7 +561,7 @@ if __name__ == '__main__':
 
     # data parameters
     # path - depends on the file system
-    dataset_path = '../../../experiments/2/dataset_for_training_risk_level_'+ str(RISK_LEVEL) +'.h5'
+    dataset_path = '../../../experiments/30/dataset_for_training_risk_level_'+ str(RISK_LEVEL) +'.h5'
 
     # normalization
     normalization = 'minMax'  # minMax percentile meanstd
