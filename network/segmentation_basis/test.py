@@ -1,5 +1,5 @@
 import matplotlib
-from keras.datasets import mnist
+from keras.datasets import cifar10
 
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
@@ -157,8 +157,8 @@ def add_noise(image):
 if __name__ == '__main__':
 
     # noise parameters
-    MEAN_FACTOR_NOISE = 1.
-    STD_FACTOR_NOISE = 2.
+    MEAN_FACTOR_NOISE = 0.
+    STD_FACTOR_NOISE = 0.
 
     # inputs
     EXPERIMENT_ID = sys.argv[1]
@@ -186,7 +186,8 @@ if __name__ == '__main__':
     model = load_model(CNN_arch, CNN_weights)
 
     # load test set
-    _, (data, y_true) = mnist.load_data()
+    _, (data, y_true) = cifar10.load_data()
+    y_true = np.squeeze(y_true)
 
     # select only zeros and ones
     data = data[(y_true == 0) + (y_true == 1)]
@@ -213,12 +214,10 @@ if __name__ == '__main__':
             data = (data - minData)*1. / (maxData - minData)        
         elif normalization == 'meanstd':
             std_data = np.std(data)
-            data = (data - np.mean(data))*1. / std_data   
-    #add channel axis
-    X = np.expand_dims(data,axis=-1)
+            data = (data - np.mean(data))*1. / std_data
 
     #predict
-    prediction = np.squeeze(model.predict(X, batch_size=1, verbose = 0))
+    prediction = np.squeeze(model.predict(data, batch_size=1, verbose = 0))
     if thresh:
         prediction = np.where(prediction > 0.5, 1, 0)
 

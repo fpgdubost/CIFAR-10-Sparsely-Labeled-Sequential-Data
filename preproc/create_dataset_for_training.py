@@ -79,16 +79,23 @@ if __name__ == '__main__':
         x_train_neg_all = x_train[y_train==0]
         x_train_neg = np.zeros([nbr_neg] + list(sequences_x_train.shape[2:]))
         y_train_neg = np.zeros([nbr_neg])
-        for i in range(nbr_seq):
-                index = random.randrange(len(x_train_neg_all))
-                x_train_neg[i] = x_train_neg_all[index]
+        for i in range(nbr_neg):
+            index = random.randrange(len(x_train_neg_all))
+            x_train_neg[i] = x_train_neg_all[index]
+        # copy sampled negatives to fill the rest
+        for i in range(1, risk_level):
+            x_train_neg[nbr_seq * i:nbr_seq * (i + 1)] = x_train_neg[:nbr_seq]
+
         # valid
         x_valid_neg_all = x_valid[y_valid == 0]
         x_valid_neg = np.zeros([nbr_neg] + list(sequences_x_valid.shape[2:]))
         y_valid_neg = np.zeros([nbr_seq * risk_level])
-        for i in range(nbr_seq):
-                index = random.randrange(len(x_valid_neg_all))
-                x_valid_neg[i] = x_valid_neg_all[index]
+        for i in range(nbr_neg):
+            index = random.randrange(len(x_valid_neg_all))
+            x_valid_neg[i] = x_valid_neg_all[index]
+        # copy sampled negatives to fill the rest
+        for i in range(1, risk_level):
+            x_valid_neg[nbr_seq * i:nbr_seq * (i + 1)] = x_valid_neg[:nbr_seq]
 
         # merge positives and negatives ---------------------------------------------
         x_train = np.concatenate((x_train_pos,x_train_neg),axis=0)

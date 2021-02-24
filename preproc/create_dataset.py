@@ -87,9 +87,9 @@ if __name__ == '__main__':
     # visualize sequence
     for seq_id in range(NBR_SEQ):
         # fill image
-        image = np.zeros([size_y,size_x*NBR_IMAGES_IN_SEQ])
+        image = np.zeros([size_y,size_x*NBR_IMAGES_IN_SEQ,NBR_CHANNELS])
         for i in range(NBR_IMAGES_IN_SEQ):
-            image[0:size_y,i*size_x:(i+1)*size_x] = sequences_x_train[seq_id,i,:,:,0]
+            image[0:size_y,i*size_x:(i+1)*size_x] = sequences_x_train[seq_id,i]
 
         # save image
         scipy.misc.imsave(os.path.join(save_path,'seq_1_'+str(seq_id)+'.jpg'), image)

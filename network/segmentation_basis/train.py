@@ -188,7 +188,7 @@ def network_classification_2D_bn():
     activ = 'relu'
     dropout_rate = 0.0
 
-    input = Input(shape=(None, None, 1))
+    input = Input(shape=(None, None, 3))
 
     conv1 = Conv2D(nfeat, (3, 3), kernel_regularizer=l2(0.01), bias_regularizer=l2(0.01), activation=activ, kernel_initializer='normal', padding='same')(input)
     conv1 = BatchNormalization()(conv1)
