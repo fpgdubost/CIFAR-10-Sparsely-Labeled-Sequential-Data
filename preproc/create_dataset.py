@@ -10,8 +10,8 @@ from basic_functions import createExpFolderandCodeList
 
 def create_list_sequences(x, y):
     # extract only 0 and 1 images
-    x_0 = x[y == 0]
-    x_1 = x[y == 1]
+    x_0 = x[y == NEGATIVE_LABEL_ID]
+    x_1 = x[y == POSITIVE_LABEL_ID]
 
     # create empty arrays
     sequences_x = np.zeros([NBR_SEQ,NBR_IMAGES_IN_SEQ,size_x,size_y,NBR_CHANNELS])
@@ -40,8 +40,10 @@ def create_list_sequences(x, y):
 if __name__ == '__main__':
 
     NBR_IMAGES_IN_SEQ = 10
-    NBR_SEQ = 200
+    NBR_SEQ = 50
     NBR_CHANNELS = 3
+    POSITIVE_LABEL_ID = 1
+    NEGATIVE_LABEL_ID = 9
 
     # exp number
     exp_number = sys.argv[1]

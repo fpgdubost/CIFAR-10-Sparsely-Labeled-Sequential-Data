@@ -512,7 +512,7 @@ def train_model():
 
     # train model
     print('training ...')
-    step_per_epoch = 300 #len(train_set_y) / batch_size
+    step_per_epoch = 100 #len(train_set_y) / batch_size
     model.fit_generator(datagen.flow(train_set_x, train_set_y, batch_size=batch_size, shuffle=True),
                         steps_per_epoch=step_per_epoch, epochs=nb_epoch,
                         verbose=1, validation_data=(valid_set_x, valid_set_y), callbacks=[history, saveBestModel],
@@ -551,8 +551,9 @@ if __name__ == '__main__':
     # inputs
     EXPERIMENT_ID = sys.argv[1]
     RISK_LEVEL = sys.argv[2]
+    DATASET_ID = sys.argv[3]
 
-    fixedSeed = True
+    fixedSeed = False
 
     # define paths
     path_splits = ''
@@ -561,7 +562,7 @@ if __name__ == '__main__':
 
     # data parameters
     # path - depends on the file system
-    dataset_path = '../../../experiments/30/dataset_for_training_risk_level_'+ str(RISK_LEVEL) +'.h5'
+    dataset_path = os.path.join('../../../experiments',str(DATASET_ID),'dataset_for_training_risk_level_'+ str(RISK_LEVEL) +'.h5')
 
     # normalization
     normalization = 'minMax'  # minMax percentile meanstd
@@ -606,7 +607,7 @@ if __name__ == '__main__':
 
     # training parameters
     batch_size = 1  # 64
-    nb_epoch = 200  # 2000 400 150
+    nb_epoch = 150  # 2000 400 150
     dropout_rate = 0.0  # 0.3
 
     train_model()

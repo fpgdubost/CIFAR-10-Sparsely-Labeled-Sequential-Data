@@ -15,19 +15,19 @@ def add_noise(image):
     image += noise
     return image
 
-def extract_negative_samples(sequences_x,x,y):
+def extract_negative_samples(risk_level, sequences_x,x,y):
     nbr_neg = nbr_seq * risk_level
-    x_neg_all = x[y == 0]
+    x_neg_all = x[y == NEGATIVE_LABEL_ID]
     x_neg = np.zeros([nbr_neg] + list(sequences_x.shape[2:]))
     y_neg = np.zeros([nbr_neg])
-    for i in range(nbr_neg):
+    for i in range(nbr_seq):
         index = random.randrange(len(x_neg_all))
         x_neg[i] = x_neg_all[index]
     # copy sampled negatives to fill the rest
     for i in range(1, risk_level):
         x_neg[nbr_seq * i:nbr_seq * (i + 1)] = x_neg[:nbr_seq]
 
-    return x_neg
+    return x_neg, y_neg
 
 
 if __name__ == '__main__':
@@ -35,12 +35,13 @@ if __name__ == '__main__':
     MEAN_FACTOR_NOISE = 0.
     STD_FACTOR_NOISE = 0.
     NBR_CHANNELS = 3
+    NEGATIVE_LABEL_ID = 9
 
     # exp number
     exp_number = sys.argv[1]
 
     # paths
-    original_dataset_path = '../../experiments/1/dataset_sequences.h5'
+    original_dataset_path = '../../experiments/815/dataset_sequences.h5'
     save_path = os.path.join('../../experiments',exp_number)
 
     # create exp folder
@@ -88,8 +89,8 @@ if __name__ == '__main__':
         y_valid = y_train_total[split_point:]
 
         # extract negative samples
-        x_train_neg = extract_negative_samples(sequences_x_train, x_train, y_train)
-        x_valid_neg = extract_negative_samples(sequences_x_valid, x_valid, y_valid)
+        x_train_neg, y_train_neg = extract_negative_samples(risk_level, sequences_x_train, x_train, y_train)
+        x_valid_neg, y_valid_neg = extract_negative_samples(risk_level, sequences_x_valid, x_valid, y_valid)
 
         # merge positives and negatives ---------------------------------------------
         x_train = np.concatenate((x_train_pos,x_train_neg),axis=0)
