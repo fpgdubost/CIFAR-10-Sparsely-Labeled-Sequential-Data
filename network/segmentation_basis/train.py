@@ -27,7 +27,6 @@ from shutil import copy2
 import sys
 import os
 import numpy as np
-import nipy
 import pandas as pd
 import random
 import gzip

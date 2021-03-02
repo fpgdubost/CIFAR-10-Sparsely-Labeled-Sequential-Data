@@ -10,8 +10,8 @@ from basic_functions import createExpFolderandCodeList
 
 EXPERIMENT_ID = sys.argv[1]
 METRICS = ['f1','acc','ap','auc','precis','recall']
-#series_exp = [range(411,420), range(421,430),range(431,440),range(441,450),range(451,460),range(461,470),range(471,480),range(481,490),range(491,500),range(501,510),
-series_exp = [range(701,710),range(711,420), range(721,730),range(731,740),range(741,750),range(751,760),range(761,770),range(771,780),range(781,790),range(791,800)]
+START_ID=2400
+series_exp = [range(START_ID+1,START_ID+10),range(START_ID+11,START_ID+20), range(START_ID+21,START_ID+30),range(START_ID+31,START_ID+40),range(START_ID+41,START_ID+50),range(START_ID+51,START_ID+60),range(START_ID+61,START_ID+70),range(START_ID+71,START_ID+80),range(START_ID+81,START_ID+90),range(START_ID+91,START_ID+100)]
 
 # paths
 path_experiments = '../../experiments'

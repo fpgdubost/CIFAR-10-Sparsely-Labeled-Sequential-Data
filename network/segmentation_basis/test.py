@@ -8,7 +8,6 @@ import sys
 import numpy as np
 import os
 from keras.models import model_from_json
-import nipy
 from attentionComputation import getCAM, getGradCAM, getGradOrGuidedBackprop
 import gzip
 from basicFunctions import createExpFolderandCodeList
