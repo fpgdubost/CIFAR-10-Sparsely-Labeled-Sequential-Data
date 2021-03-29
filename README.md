@@ -1,4 +1,4 @@
-# cifar10_sequence
+# Sparsely-Labeled Sequential Data: Application to CIFAR-10 Image Sequences.
 
 Code for semi-supervised deep learning experiments on CIFAR-10. The code includes, preprocessing, network training and evaluation, computation of results metrics on the test, and computation of statistical test, all in Python.
 Contact floriandubost1 at gmail.com for questions.
